@@ -2,6 +2,12 @@
 # 14 Jun 22 - Ich_bin_Jade
 # Script to convert task list into formatted list for KOA accountability-station channel
 
+#####################################
+#   DATE   COMMENT
+# ======== =======
+# 17/07/22 Include 'Top 3' display
+#####################################
+
 import os
 import datetime
 
@@ -13,7 +19,6 @@ https://www.webfx.com/tools/emoji-cheat-sheet/
 """
 
 EMOJI_MARKER = ":new_moon:"
-
 tasks = []
 
 
@@ -45,13 +50,23 @@ def get_list(user_tasks):
 
 
 def display_list(task_list, marker):
+    counter = 1
     clear_screen()
-    print(f"**{get_date()}**")
-    print(f"*Not Started: {len(task_list)}; In Progress: 0; Completed: 0*")
-    print("")
+    print(f"**{get_date()}**\n")
+    print("__**Top 3:**__")
 
     for task in task_list:
-        print(f"{marker} {task}")
+        if counter in range(1,3):
+            # Print the top 3, newline and remaining tasks
+            print(f"{marker} {task}")
+        elif counter == 4:
+            print("")
+            print(f"{marker} {task}")
+        else:
+            print(f"{marker} {task}")
+        counter += 1
+
+    print(f"\n*Not Started: {len(task_list)}; In Progress: 0; Completed: 0*\n")
 
 
 if __name__ == "__main__":
